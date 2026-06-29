@@ -31,7 +31,9 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
+.secrets/
 
 # typescript
 *.tsbuildinfo
@@ -39,5 +41,8 @@ yarn-error.*
 example
 
 # generated native folders
-/ios
 /android
+/ios/Pods/
+/ios/build/
+/ios/*.xcworkspace/xcuserdata/
+/ios/*.xcodeproj/xcuserdata/

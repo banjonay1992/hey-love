@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hey-love",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-06-29",
+  "vars": {
+    "EXPO_PUBLIC_SUPABASE_URL": "https://ummrdtngcetoandmitqr.supabase.co",
+    "EXPO_PUBLIC_SUPABASE_ANON_KEY": "sb_publishable_VIjRQzkbTvIPNgYrwkAKDg_n3291Z6J"
+  }
+}
