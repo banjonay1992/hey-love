@@ -3,8 +3,10 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 );
 
 import {
+  collectionFromRow,
   collectionToInsert,
   memoryCollectionInserts,
+  memoryFromRow,
   memoryToInsert,
 } from '@/lib/supabase';
 import type { Collection, Memory } from '@/lib/types';
@@ -67,5 +69,51 @@ describe('Supabase mapping', () => {
       { memory_id: 'memory-1', collection_id: 'box-1', user_id: 'user-1' },
       { memory_id: 'memory-1', collection_id: 'box-2', user_id: 'user-1' },
     ]);
+  });
+
+  it('maps Supabase rows back into local collections and memories', () => {
+    expect(
+      collectionFromRow({
+        id: 'box-1',
+        user_id: 'user-1',
+        name: 'Family',
+        accent: '#b98663',
+        created_at: '2026-06-29T08:00:00.000Z',
+      }),
+    ).toEqual({
+      id: 'box-1',
+      name: 'Family',
+      accent: '#b98663',
+      createdAt: '2026-06-29T08:00:00.000Z',
+    });
+
+    expect(
+      memoryFromRow(
+        {
+          id: 'memory-1',
+          user_id: 'user-1',
+          type: 'photo',
+          title: null,
+          about: 'Garden',
+          note: null,
+          prompt: 'Look at the light',
+          audio_path: null,
+          photo_path: 'file:///photo.jpg',
+          duration_millis: null,
+          unlock_date: '2027-06-29T08:00:00.000Z',
+          created_at: '2026-06-29T08:01:00.000Z',
+        },
+        ['box-1'],
+      ),
+    ).toEqual({
+      id: 'memory-1',
+      type: 'photo',
+      about: 'Garden',
+      prompt: 'Look at the light',
+      photoUri: 'file:///photo.jpg',
+      collectionIds: ['box-1'],
+      unlockDate: '2027-06-29T08:00:00.000Z',
+      createdAt: '2026-06-29T08:01:00.000Z',
+    });
   });
 });
