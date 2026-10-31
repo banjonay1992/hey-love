@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+# Hey, Love
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A quiet place to keep the voices, sounds, photographs, notes and small moments that matter. Live on the App Store as **Hey, Love**.
 
-## Get started
+Record a voice you never want to forget, save a photograph with the feeling around it, or write a few words about a person, a pet or a place. Memories can go into keepsake boxes, and a time capsule can hide one until a date you choose, like next Christmas or five years from now. There are no feeds, likes, followers or public profiles: it is made for private remembering.
 
-1. Install dependencies
+It is for anyone who wants to hold on to the people and moments in their life without posting them anywhere. It is built with Expo and React Native (TypeScript, Expo Router), with Supabase for anonymous sign-in and sync, and a web build hosted on Cloudflare Pages.
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- Capture voice recordings with a live waveform, ambient sounds, photos and written notes
+- Gentle prompts for what to keep today
+- Keepsake boxes (collections) with soft accent colours
+- Time capsules that stay locked until their unlock date
+- Search and filters across everything you have kept
+- Local-first storage, with optional sync through Supabase using anonymous accounts and row level security
 
-   ```bash
-   npx expo start
-   ```
+## Running it
 
-In the output, you'll find options to open the app in a
+You need Node 22 and, for iOS, Xcode with a simulator or a device.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Without Supabase settings the app runs fully on-device. To try sync, create a Supabase project with anonymous sign-ins enabled, apply the migrations in `supabase/migrations`, and set these in a local `.env` file (never committed):
 
-### Other setup steps
+```sh
+EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your-publishable-key
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+Every table has row level security, so a user can only ever read or write their own rows.
 
-## Learn more
+## Web build
 
-To learn more about developing your project with Expo, look at the following resources:
+```sh
+npm run build:web
+npm run deploy:cloudflare
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Pushes to `main` also deploy through the GitHub Actions workflow in `.github/workflows`.
 
-## Join the community
+## Tests
 
-Join our community of developers creating universal apps.
+```sh
+npm test
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Tests cover content helpers, formatting and the Supabase row mapping.
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md).
+
+## Licence
+
+MIT, see [LICENSE](LICENSE).
